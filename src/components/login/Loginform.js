@@ -1,15 +1,14 @@
 import React from 'react';
-import PasswordInput from './PasswordInput'
-import UsernameInput from './UsernameInput';
-import FormButton from './FormButton';
+import FormInput from '../Common/FormInput';
+import FormButton from '../Common/FormButton';
 
 const Login = ({ username, setUsername, password, setPassword, handleLogin }) => {
 
   return (
     <div>
       <form onSubmit={handleLogin}>
-        <UsernameInput username={username} setUsername={setUsername}/>
-        <PasswordInput password={password} setPassword={setPassword}/>
+        <FormInput state={username} setState={setUsername} text="username" name="username" type="text"/>
+        <FormInput state={password} setState={setPassword} text="password" name="password" type="password"/>
         <FormButton type='submit' text='submit'/>
       </form>
     </div>

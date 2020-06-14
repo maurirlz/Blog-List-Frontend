@@ -2,8 +2,11 @@ import React, {useEffect, useState} from 'react';
 import Blog from './components/Blog';
 import Title from './components/Common/Title';
 import Login from './components/login/Loginform';
+import Blogs from './components/Blogs';
+import Button from './components/Common/Button';
 import blogService from './services/blogs';
 import loginService from './services/login';
+import CreateBlogForm from './components/createBlogForm/CreateBlogForm';
 
 const App = () => {
 
@@ -12,24 +15,28 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-
     const loggedUserJSON = window.localStorage.getItem('LoggedBlogUser');
 
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
-      blogService.handleToken(user.token)
+      blogService.setToken(user.token)
     }
   }, []);
-
 
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [author, setAuthor] = useState('');
+  const [title, setTitle] = useState('');
+  const [url, setUrl] = useState('');
   const [user, setUser] = useState(null);
 
-  const handleUsernameChange = (change) => setUsername(change)
-  const handlePasswordChange = (change) => setPassword(change);
+  const handleLogout = () => {
+    window.localStorage.removeItem('LoggedBlogUser');
+    setUser(null);
+    blogService.setToken('');
+  }
 
   const handleLogin = async (event) => {
 
@@ -42,47 +49,70 @@ const App = () => {
       });
 
       window.localStorage.setItem('LoggedBlogUser',
-        JSON.stringify(user))
+        JSON.stringify(user));
+      blogService.setToken(user.token);
 
-      setUsername('')
-      setPassword('')
+      setUsername('');
+      setPassword('');
       setUser(user);
     } catch (e) {
       console.error(e.message)
     }
-  }
+  };
+
+  const createBlog = async (event) => {
+
+    event.preventDefault();
+    try {
+
+      const newBlog = {
+        title,
+        author,
+        url
+      }
+
+      const data = await blogService.createBlog(newBlog);
+      setTitle('')
+      setUrl('')
+      setAuthor('');
+      setBlogs(blogs.concat(data));
+
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
 
   const displayLoginForm = () => {
     return (
-      <>
+      <div class="loginform">
         <Title text="Log in"/>
         <br/>
-        <Login handleLogin={handleLogin} password={password} setPassword={handlePasswordChange}
-               username={username} setUsername={handleUsernameChange} />
-      </>
+        <Login setUsername={setUsername} username={username} password={password} setPassword={setPassword} handleLogin={handleLogin}/>
+      </div>
     )
   }
 
-  const displayBlogs = (blogs) => {
+  const displayBlogsSection = (blogs) => {
     return (
-      <>
-        <Title text="Blogs"/>
-        <p>{user.name} logged in.</p>
-        {
-          blogs.map(blog =>
-            <Blog blog={blog} id={blog.id}/>
-          )}
-      </>
+      <div class="blogsection">
+        <div class="greetsection">
+          <Blogs username={user.name} blogs={blogs} textTitle="Blog Section" handleLogout={handleLogout}/>
+        </div>
+        <div class="createblog">
+          <CreateBlogForm
+            author={author} setAuthor={setAuthor} title={title} setTitle={setTitle}
+            url={url} setUrl={setUrl} handleBlogCreation={createBlog}
+          />
+        </div>
+      </div>
     );
   };
 
   return (
     <div>
-
       {user === null ?
-
         displayLoginForm() :
-        displayBlogs(blogs)
+        displayBlogsSection(blogs)
       }
     </div>
   )
