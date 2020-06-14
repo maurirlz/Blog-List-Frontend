@@ -2,7 +2,7 @@ import React from 'react';
 import FormInput from '../Common/FormInput';
 import FormButton from '../Common/FormButton';
 
-const CreateBlogForm = ({ title, setTitle, author, setAuthor, url, setUrl, handleBlogCreation }) => {
+const BlogForm = ({ title, setTitle, author, setAuthor, url, setUrl, handleBlogCreation }) => {
 
   return (
     <form onSubmit={handleBlogCreation}>
@@ -14,4 +14,4 @@ const CreateBlogForm = ({ title, setTitle, author, setAuthor, url, setUrl, handl
   )
 }
 
-export default CreateBlogForm;
+export default BlogForm;

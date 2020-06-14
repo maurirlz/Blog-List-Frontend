@@ -6,7 +6,8 @@ import Blogs from './components/Blogs';
 import Button from './components/Common/Button';
 import blogService from './services/blogs';
 import loginService from './services/login';
-import CreateBlogForm from './components/createBlogForm/CreateBlogForm';
+import BlogForm from './components/createBlogForm/BlogForm';
+import LoginSection from './components/login/LoginSection';
 
 const App = () => {
 
@@ -85,9 +86,10 @@ const App = () => {
   const displayLoginForm = () => {
     return (
       <div class="loginform">
-        <Title text="Log in"/>
-        <br/>
-        <Login setUsername={setUsername} username={username} password={password} setPassword={setPassword} handleLogin={handleLogin}/>
+        <LoginSection username={username} setUsername={setUsername}
+                      password={password} setPassword={setPassword}
+                      handleLogin={handleLogin}
+        />
       </div>
     )
   }
@@ -95,11 +97,13 @@ const App = () => {
   const displayBlogsSection = (blogs) => {
     return (
       <div class="blogsection">
-        <div class="greetsection">
+        <div class="showblogs">
           <Blogs username={user.name} blogs={blogs} textTitle="Blog Section" handleLogout={handleLogout}/>
         </div>
+        <div class="logininfo">
+        </div>
         <div class="createblog">
-          <CreateBlogForm
+          <BlogForm
             author={author} setAuthor={setAuthor} title={title} setTitle={setTitle}
             url={url} setUrl={setUrl} handleBlogCreation={createBlog}
           />
@@ -109,12 +113,12 @@ const App = () => {
   };
 
   return (
-    <div>
+    <>
       {user === null ?
         displayLoginForm() :
         displayBlogsSection(blogs)
       }
-    </div>
+    </>
   )
 }
 
