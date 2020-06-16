@@ -5,6 +5,7 @@ import loginService from "./services/login";
 import BlogForm from "./components/Blogsection/Form/BlogForm";
 import LoginSection from "./components/login/LoginSection";
 import Greeting from "./components/Blogsection/Greeting";
+import Notification from "./components/Common/Notification";
 
 const App = () => {
   useEffect(() => {
@@ -28,6 +29,8 @@ const App = () => {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [user, setUser] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState(null);
 
   const handleLogout = () => {
     window.localStorage.removeItem("LoggedBlogUser");
@@ -51,7 +54,13 @@ const App = () => {
       setPassword("");
       setUser(user);
     } catch (e) {
-      console.error(e.message);
+      if (e.message.includes("401")) {
+        setErrorMessage("Invalid username or password.");
+      }
+
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 4000);
     }
   };
 
@@ -69,14 +78,23 @@ const App = () => {
       setUrl("");
       setAuthor("");
       setBlogs(blogs.concat(data));
+
+      setNotificationMessage("Blog added!!!");
+      setTimeout(() => {
+        setNotificationMessage(null);
+      }, 3000);
     } catch (e) {
-      console.error(e.message);
+      setTimeout(() => {
+        setErrorMessage(e.message);
+      }, 4000);
+      setErrorMessage(null);
     }
   };
 
   const displayLoginForm = () => {
     return (
       <div class="loginform">
+        <Notification message={errorMessage} />
         <LoginSection
           username={username}
           setUsername={setUsername}
@@ -97,6 +115,7 @@ const App = () => {
             textTitle="Blog section"
             handleLogout={handleLogout}
           />
+          <Notification message={notificationMessage} />
         </div>
         <div>
           <br />
