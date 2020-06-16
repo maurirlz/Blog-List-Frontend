@@ -1,6 +1,6 @@
 import React from 'react';
-import FormInput from '../Common/FormInput';
-import FormButton from '../Common/FormButton';
+import FormInput from '../../Common/FormInput';
+import FormButton from '../../Common/FormButton';
 
 const BlogForm = ({ title, setTitle, author, setAuthor, url, setUrl, handleBlogCreation }) => {
 
