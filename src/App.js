@@ -94,7 +94,7 @@ const App = () => {
   const displayLoginForm = () => {
     return (
       <div class="loginform">
-        <Notification message={errorMessage} />
+        <Notification class="notification" message={errorMessage} />
         <LoginSection
           username={username}
           setUsername={setUsername}
@@ -115,7 +115,7 @@ const App = () => {
             textTitle="Blog section"
             handleLogout={handleLogout}
           />
-          <Notification message={notificationMessage} />
+          <Notification class="notification" message={notificationMessage} />
         </div>
         <div>
           <br />
