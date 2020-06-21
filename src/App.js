@@ -3,12 +3,21 @@ import Blogs from "./components/Blogsection/BlogComponents/Blogs";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 import BlogForm from "./components/Blogsection/Form/BlogForm";
-import LoginSection from "./components/login/LoginSection";
+import LoginForm from "./components/login/Loginform";
 import Greeting from "./components/Blogsection/Greeting";
 import Notification from "./components/Common/Notification";
 import Togglable from "/home/maaush/git/blog-list-frontend/src/components/Common/Togglable";
 
 const App = () => {
+  // state declaration
+
+  const [blogs, setBlogs] = useState([]);
+  const [user, setUser] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState(null);
+
+  // effects declaration
+
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
@@ -23,12 +32,7 @@ const App = () => {
     }
   }, []);
 
-  const [blogs, setBlogs] = useState([]);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [notificationMessage, setNotificationMessage] = useState(null);
+  // logout
 
   const handleLogout = () => {
     window.localStorage.removeItem("LoggedBlogUser");
@@ -36,19 +40,14 @@ const App = () => {
     blogService.setToken("");
   };
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
+  // login
 
+  const handleLogin = async (userCredentials) => {
     try {
-      const user = await loginService.login({
-        username,
-        password,
-      });
+      const user = await loginService.login(userCredentials);
 
       window.localStorage.setItem("LoggedBlogUser", JSON.stringify(user));
       blogService.setToken(user.token);
-      setUsername("");
-      setPassword("");
       setUser(user);
     } catch (e) {
       if (e.message.includes("401")) {
@@ -60,6 +59,8 @@ const App = () => {
       }, 4000);
     }
   };
+
+  // send blog to the server
 
   const createBlog = async (newBlog) => {
     try {
@@ -78,20 +79,18 @@ const App = () => {
     }
   };
 
+  // form login
+
   const displayLoginForm = () => {
     return (
-      <div class="loginform">
+      <div className="loginform">
         <Notification class="notification" message={errorMessage} />
-        <LoginSection
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-          handleLogin={handleLogin}
-        />
+        <LoginForm handleLogin={handleLogin} />
       </div>
     );
   };
+
+  // form blogs creation
 
   const displayBlogsSection = (blogs) => {
     return (
