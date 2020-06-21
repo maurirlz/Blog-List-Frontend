@@ -6,6 +6,7 @@ import BlogForm from "./components/Blogsection/Form/BlogForm";
 import LoginSection from "./components/login/LoginSection";
 import Greeting from "./components/Blogsection/Greeting";
 import Notification from "./components/Common/Notification";
+import Togglable from "/home/maaush/git/blog-list-frontend/src/components/Common/Togglable";
 
 const App = () => {
   useEffect(() => {
@@ -25,9 +26,6 @@ const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [author, setAuthor] = useState("");
-  const [title, setTitle] = useState("");
-  const [url, setUrl] = useState("");
   const [user, setUser] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [notificationMessage, setNotificationMessage] = useState(null);
@@ -49,7 +47,6 @@ const App = () => {
 
       window.localStorage.setItem("LoggedBlogUser", JSON.stringify(user));
       blogService.setToken(user.token);
-
       setUsername("");
       setPassword("");
       setUser(user);
@@ -64,21 +61,10 @@ const App = () => {
     }
   };
 
-  const createBlog = async (event) => {
-    event.preventDefault();
+  const createBlog = async (newBlog) => {
     try {
-      const newBlog = {
-        title,
-        author,
-        url,
-      };
-
       const data = await blogService.createBlog(newBlog);
-      setTitle("");
-      setUrl("");
-      setAuthor("");
       setBlogs(blogs.concat(data));
-
       setNotificationMessage("Blog added!!!");
       setTimeout(() => {
         setNotificationMessage(null);
@@ -87,6 +73,7 @@ const App = () => {
       setTimeout(() => {
         setErrorMessage(e.message);
       }, 4000);
+
       setErrorMessage(null);
     }
   };
@@ -117,18 +104,12 @@ const App = () => {
           />
           <Notification class="notification" message={notificationMessage} />
         </div>
-        <div>
-          <br />
-          <BlogForm
-            author={author}
-            setAuthor={setAuthor}
-            title={title}
-            setTitle={setTitle}
-            url={url}
-            setUrl={setUrl}
-            handleBlogCreation={createBlog}
-          />
-        </div>
+        <Togglable buttonLabel="Create a New Blog">
+          <div>
+            <br />
+            <BlogForm handleBlogCreation={createBlog} />
+          </div>
+        </Togglable>
         <div>
           <br />
           <Blogs
