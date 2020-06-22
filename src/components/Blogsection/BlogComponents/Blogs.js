@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Blog from "./Blog";
 
 const Blogs = ({ blogs, likeHandler, deleteHandler }) => {
@@ -26,6 +27,11 @@ const Blogs = ({ blogs, likeHandler, deleteHandler }) => {
       ))}
     </>
   );
+};
+Blogs.propTypes = {
+  likeHandler: PropTypes.func.isRequired,
+  deleteHandler: PropTypes.func.isRequired,
+  blogs: PropTypes.node.isRequired,
 };
 
 export default Blogs;

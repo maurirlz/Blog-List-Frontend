@@ -1,22 +1,23 @@
-import React, { useState } from 'react'
-import FormInput from '../Common/FormInput'
-import FormButton from '../Common/FormButton'
-import Title from '../Common/Title'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import FormInput from '../Common/FormInput';
+import FormButton from '../Common/FormButton';
+import Title from '../Common/Title';
 
 const LoginForm = ({ handleLogin }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const createUser = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     handleLogin({
-      username: username,
-      password: password,
-    })
+      username,
+      password,
+    });
 
-    setUsername('')
-    setPassword('')
-  }
+    setUsername('');
+    setPassword('');
+  };
 
   return (
     <div>
@@ -39,7 +40,11 @@ const LoginForm = ({ handleLogin }) => {
         <FormButton type="submit" text="submit" />
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default LoginForm
+LoginForm.propTypes = {
+  handleLogin: PropTypes.func,
+};
+
+export default LoginForm;
