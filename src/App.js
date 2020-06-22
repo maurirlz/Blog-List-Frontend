@@ -21,7 +21,9 @@ const App = () => {
   useEffect(() => {
     // GET all blogs through axios.
 
-    blogService.getAll().then((blogs) => setBlogs(blogs));
+    blogService.getAll().then((blogs) => {
+      setBlogs(blogs);
+    });
   }, []);
 
   useEffect(() => {
@@ -81,7 +83,7 @@ const App = () => {
     }
   };
 
-  // send put request to the axios function to update the likes qty of a post.
+  // sends put request to the axios function to update the likes qty of a post.
 
   const handleBlogLike = async (id) => {
     try {
@@ -89,16 +91,15 @@ const App = () => {
 
       const newBlog = {
         ...oldBlog,
-        likes: oldBlog.likes += 1,
-      }
+        likes: (oldBlog.likes += 1),
+      };
 
       const response = await blogService.updateBlog(newBlog);
       response.user = oldBlog.user;
 
       setBlogs(blogs.map((blog) => (blog.id !== oldBlog.id ? blog : response)));
-
+      console.log(blogs);
     } catch (e) {
-
       setTimeout(() => {
         setErrorMessage(e.message);
       }, 4000);

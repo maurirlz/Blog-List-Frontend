@@ -9,6 +9,8 @@ const setToken = (newToken) => {
 
 const getAll = async () => {
   const response = await axios.get(baseUrl);
+
+  console.log(response.data);
   return response.data;
 };
 
@@ -25,7 +27,6 @@ const createBlog = async (blog) => {
 };
 
 const updateBlog = async (blog) => {
-
   const urlId = `${baseUrl}/${blog.id}`;
   const response = await axios.put(urlId, blog);
 
