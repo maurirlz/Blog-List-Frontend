@@ -1,12 +1,12 @@
-import React from 'react';
-import Blog from './Blog';
+import React from "react";
+import Blog from "./Blog";
 
-const Blogs = ({ blogs }) => {
+const Blogs = ({ blogs, likeHandler }) => {
   return (
     <>
-      {
-        blogs.map((blog) =>
-      <Blog blog={blog} key={blog.id} />)}
+      {blogs.map((blog) => (
+        <Blog blog={blog} key={blog.id} likeHandler={likeHandler} />
+      ))}
     </>
   );
 };

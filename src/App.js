@@ -19,6 +19,8 @@ const App = () => {
   // effects declaration
 
   useEffect(() => {
+    // GET all blogs through axios.
+
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
 
@@ -60,7 +62,7 @@ const App = () => {
     }
   };
 
-  // send blog to the server
+  // send post request to the axios function then to the server.
 
   const createBlog = async (newBlog) => {
     try {
@@ -76,6 +78,30 @@ const App = () => {
       }, 4000);
 
       setErrorMessage(null);
+    }
+  };
+
+  // send put request to the axios function to update the likes qty of a post.
+
+  const handleBlogLike = async (id) => {
+    try {
+      const oldBlog = blogs.find((blog) => blog.id === id);
+
+      const newBlog = {
+        ...oldBlog,
+        likes: oldBlog.likes += 1,
+      }
+
+      const response = await blogService.updateBlog(newBlog);
+      response.user = oldBlog.user;
+
+      setBlogs(blogs.map((blog) => (blog.id !== oldBlog.id ? blog : response)));
+
+    } catch (e) {
+
+      setTimeout(() => {
+        setErrorMessage(e.message);
+      }, 4000);
     }
   };
 
@@ -103,7 +129,10 @@ const App = () => {
           />
           <Notification class="notification" message={notificationMessage} />
         </div>
-        <Togglable buttonLabel="Create a New Blog">
+        <Togglable
+          positiveButtonLabel="Create a New Blog"
+          negativeButtonLabel="Cancel"
+        >
           <div>
             <br />
             <BlogForm handleBlogCreation={createBlog} />
@@ -116,6 +145,7 @@ const App = () => {
             blogs={blogs}
             textTitle="Blog Section"
             handleLogout={handleLogout}
+            likeHandler={handleBlogLike}
           />
         </div>
       </div>
