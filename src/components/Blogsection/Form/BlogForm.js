@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import FormInput from "../../Common/FormInput";
-import FormButton from "../../Common/FormButton";
+import React, { useState } from 'react'
+import FormInput from '../../Common/FormInput'
+import FormButton from '../../Common/FormButton'
 
 const BlogForm = ({ handleBlogCreation }) => {
-  const [author, setAuthor] = useState("");
-  const [title, setTitle] = useState("");
-  const [url, setUrl] = useState("");
+  const [author, setAuthor] = useState('')
+  const [title, setTitle] = useState('')
+  const [url, setUrl] = useState('')
 
   const addBlog = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     handleBlogCreation({
       title: title,
       author: author,
       url: url,
-    });
+    })
 
-    setAuthor("");
-    setTitle("");
-    setUrl("");
-  };
+    setAuthor('')
+    setTitle('')
+    setUrl('')
+  }
 
   return (
     <form onSubmit={addBlog}>
@@ -46,7 +46,7 @@ const BlogForm = ({ handleBlogCreation }) => {
       />
       <FormButton type="submit" text="Create a Blog" />
     </form>
-  );
-};
+  )
+}
 
-export default BlogForm;
+export default BlogForm

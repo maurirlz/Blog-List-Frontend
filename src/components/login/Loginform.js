@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import FormInput from "../Common/FormInput";
-import FormButton from "../Common/FormButton";
-import Title from "../Common/Title";
+import React, { useState } from 'react'
+import FormInput from '../Common/FormInput'
+import FormButton from '../Common/FormButton'
+import Title from '../Common/Title'
 
 const LoginForm = ({ handleLogin }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const createUser = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     handleLogin({
       username: username,
       password: password,
-    });
+    })
 
-    setUsername("");
-    setPassword("");
-  };
+    setUsername('')
+    setPassword('')
+  }
 
   return (
     <div>
@@ -39,7 +39,7 @@ const LoginForm = ({ handleLogin }) => {
         <FormButton type="submit" text="submit" />
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

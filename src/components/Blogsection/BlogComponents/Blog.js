@@ -1,20 +1,24 @@
-import React, { useState } from "react";
-import Button from "../../Common/Button";
+import React, { useState } from 'react'
+import Button from '../../Common/Button'
 
-const Blog = ({ blog, likeHandler }) => {
-  const [showDetails, setShowDetails] = useState(false);
+const Blog = ({ blog, likeHandler, deleteHandler }) => {
+  const [showDetails, setShowDetails] = useState(false)
 
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
-    border: "solid",
+    border: 'solid',
     borderWidth: 1,
     marginBottom: 5,
-  };
+  }
 
   const addLike = (id) => {
-    likeHandler(id);
-  };
+    likeHandler(id)
+  }
+
+  const deleteBlog = (id) => {
+    deleteHandler(id)
+  }
 
   const showBlog = () => {
     if (!showDetails) {
@@ -26,16 +30,17 @@ const Blog = ({ blog, likeHandler }) => {
             text="view blog"
           />
         </div>
-      );
+      )
     } else {
       return (
         <div>
+          <Button clickHandler={() => deleteBlog(blog.id)} text="Delete blog" />
           <p>
             Blog Title: {blog.title}
             <br />
             Blog Author: {blog.author}
             <br />
-            Total Likes: {blog.likes + "  "}
+            Total Likes: {blog.likes + '  '}
             <Button text="Like" clickHandler={() => addLike(blog.id)} />
             <br />
             URL: {blog.url}
@@ -47,10 +52,10 @@ const Blog = ({ blog, likeHandler }) => {
             text="hide blog"
           />
         </div>
-      );
+      )
     }
-  };
+  }
 
-  return <div style={blogStyle}>{showBlog()}</div>;
-};
-export default Blog;
+  return <div style={blogStyle}>{showBlog()}</div>
+}
+export default Blog

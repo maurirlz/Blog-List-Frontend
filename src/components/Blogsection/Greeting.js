@@ -1,6 +1,6 @@
-import React from 'react';
-import Title from '../Common/Title';
-import Button from '../Common/Button';
+import React from 'react'
+import Title from '../Common/Title'
+import Button from '../Common/Button'
 
 const Greeting = ({ textTitle, username, handleLogout }) => {
   return (
@@ -8,7 +8,7 @@ const Greeting = ({ textTitle, username, handleLogout }) => {
       <Title text={textTitle}/>
       <p>{username} logged in.</p> <Button text="logout" clickHandler={handleLogout}/>
     </>
-  );
-};
+  )
+}
 
-export default Greeting;
+export default Greeting

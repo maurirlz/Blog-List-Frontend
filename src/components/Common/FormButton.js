@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const FormButton = ({ text, type }) => {
 
@@ -8,4 +8,4 @@ const FormButton = ({ text, type }) => {
   )
 }
 
-export default FormButton;
+export default FormButton
