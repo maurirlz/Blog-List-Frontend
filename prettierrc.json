@@ -1,5 +1,5 @@
 {
   "printWidth": "(SET BY USER)",
-  "singleQuote": false,
+  "singleQuote": true,
   "trailingComma": "(SET BY USER)"
 }
