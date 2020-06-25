@@ -1,29 +1,40 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Blog from "./BlogComponents/Blog";
 
 describe("<Blog />", () => {
-  test("When a blog is initially displayed, it only shows its title and author.", () => {
-    const blog = {
-      title: "Testing",
-      author: "Benizio Mauritest",
-      url: "http:localhost:3000/blogs",
-      user: "maurirlz",
-    };
+  let component;
+  const likeMock = jest.fn();
+  const deleteMock = jest.fn();
 
-    const likeMock = jest.fn();
-    const deleteMock = jest.fn();
+  const blog = {
+    title: "Testing",
+    author: "Benizio Mauritest",
+    url: "http:localhost:3000/blogs",
+    user: "maurirlz",
+  };
 
-    const component = render(
-      <Blog likeHandler={likeMock} deleteHandler={deleteMock} blog={blog} />
+  beforeEach(() => {
+    component = render(
+      <Blog deleteHandler={deleteMock} likeHandler={likeMock} blog={blog} />
     );
+  });
 
+  test("When a blog is initially displayed, it only shows its title and author.", () => {
     expect(component.container).toHaveTextContent("Testing");
     expect(component.container).toHaveTextContent("Benizio Mauritest");
     expect(component.container).not.toHaveTextContent(
       "http:localhost:3000/blogs"
     );
     expect(component.container).not.toHaveTextContent("maurirlz");
+  });
+
+  test("When view blog button is clicked, component is correctly rendered", () => {
+    const button = component.getByText("view blog");
+    fireEvent.click(button);
+
+    expect(component.container).toHaveTextContent("http:localhost:3000/blogs");
+    expect(component.container).toHaveTextContent("Likes: ");
   });
 });
