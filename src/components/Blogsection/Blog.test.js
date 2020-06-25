@@ -37,4 +37,15 @@ describe("<Blog />", () => {
     expect(component.container).toHaveTextContent("http:localhost:3000/blogs");
     expect(component.container).toHaveTextContent("Likes: ");
   });
+
+  test("If like button is clicked twice, the event handler is called 2 times", () => {
+    const button = component.getByText("view blog");
+    fireEvent.click(button);
+
+    const likeButton = component.getByText("Like");
+    fireEvent.click(likeButton);
+    fireEvent.click(likeButton);
+
+    expect(likeMock.mock.calls).toHaveLength(2);
+  });
 });
