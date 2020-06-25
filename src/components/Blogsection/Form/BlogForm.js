@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import FormInput from '../../Common/FormInput';
-import FormButton from '../../Common/FormButton';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import FormInput from "../../Common/FormInput";
+import FormButton from "../../Common/FormButton";
 
 const BlogForm = ({ handleBlogCreation }) => {
-  const [author, setAuthor] = useState('');
-  const [title, setTitle] = useState('');
-  const [url, setUrl] = useState('');
+  const [author, setAuthor] = useState("");
+  const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
 
   const addBlog = (event) => {
     event.preventDefault();
@@ -17,9 +17,9 @@ const BlogForm = ({ handleBlogCreation }) => {
       url,
     });
 
-    setAuthor('');
-    setTitle('');
-    setUrl('');
+    setAuthor("");
+    setTitle("");
+    setUrl("");
   };
 
   return (
