@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Blog from "./Blog";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Blog from './Blog';
 
 const Blogs = ({ blogs, likeHandler, deleteHandler }) => {
   blogs.sort((blog, otherBlog) => {

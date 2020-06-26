@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import Button from "../../Common/Button";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import Button from '../../Common/Button';
 
 const Blog = ({ blog, likeHandler, deleteHandler }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -8,7 +8,7 @@ const Blog = ({ blog, likeHandler, deleteHandler }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
-    border: "solid",
+    border: 'solid',
     borderWidth: 1,
     marginBottom: 5,
   };

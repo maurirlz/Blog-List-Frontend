@@ -29,7 +29,7 @@ const Togglable = React.forwardRef(
         </div>
       </div>
     );
-  }
+  },
 );
 
 Togglable.propTypes = {

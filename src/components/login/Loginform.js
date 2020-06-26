@@ -44,7 +44,7 @@ const LoginForm = ({ handleLogin }) => {
 };
 
 LoginForm.propTypes = {
-  handleLogin: PropTypes.func,
+  handleLogin: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
