@@ -36,24 +36,53 @@ describe('Blog app', function () {
     });
   });
 
-  describe('When a user is logged in', function() {
-    beforeEach(function() {
+  describe('When a user is logged in', function () {
+    beforeEach(function () {
       cy.login({
         username: 'maurirlz',
         password: 'rootroot',
       });
-
-      cy.visit('http://localhost:3000');
     });
 
-    it('user should be able to create a blog', function() {
+    it('user should be able to create a blog', function () {
       cy.createBlog({
         title: 'Blog created by Cypress.',
         author: 'Cypress, who else?',
-        url: 'http://cypress.io'
+        url: 'http://cypress.io',
       });
 
       cy.contains('Blog created by Cypress.');
+    });
+
+    describe('And many blogs exists', function() {
+      beforeEach(function() {
+        cy.createBlog({
+          title: 'Blog number 1 by Cypress.',
+          author: 'Cypress, who else?',
+          url: 'http://cypress.io',
+        });
+        cy.createBlog({
+          title: 'Blog number 2 by Cypress.',
+          author: 'Cypress, who else?',
+          url: 'http://cypress.io',
+        });
+        cy.createBlog({
+          title: 'Blog number 3 by Cypress.',
+          author: 'Cypress, who else?',
+          url: 'http://cypress.io',
+        });
+      });
+
+      it('any of them can be liked', function() {
+        cy.contains('Blog number 2 by Cypress.').parent().find('button').as('viewBlog');
+        cy.get('@viewBlog').click();
+        cy.contains('Like').click();
+
+        cy.visit('http://localhost:3000');
+        cy.get('@viewBlog').click();
+        cy.contains('Total Likes: 1');
+
+      });
     });
   });
 });
