@@ -71,17 +71,24 @@ describe('Blog app', function () {
           author: 'Cypress, who else?',
           url: 'http://cypress.io',
         });
+
+        cy.contains('Blog number 2 by Cypress.').parent().find('button').as('viewBlog2');
       });
 
       it('any of them can be liked', function() {
-        cy.contains('Blog number 2 by Cypress.').parent().find('button').as('viewBlog');
-        cy.get('@viewBlog').click();
+        cy.get('@viewBlog2').click();
         cy.contains('Like').click();
 
         cy.visit('http://localhost:3000');
-        cy.get('@viewBlog').click();
+        cy.get('@viewBlog2').click();
         cy.contains('Total Likes: 1');
+      });
 
+      it('any of them can be deleted by its user', function() {
+        cy.get('@viewBlog2').click();
+        cy.contains('Delete blog').click();
+
+        cy.get('html').should('not.contain', 'Blog number 2 by Cypress.');
       });
     });
   });
