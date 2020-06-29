@@ -35,4 +35,25 @@ describe('Blog app', function () {
       cy.get('#loginError').contains('Invalid');
     });
   });
+
+  describe('When a user is logged in', function() {
+    beforeEach(function() {
+      cy.login({
+        username: 'maurirlz',
+        password: 'rootroot',
+      });
+
+      cy.visit('http://localhost:3000');
+    });
+
+    it('user should be able to create a blog', function() {
+      cy.createBlog({
+        title: 'Blog created by Cypress.',
+        author: 'Cypress, who else?',
+        url: 'http://cypress.io'
+      });
+
+      cy.contains('Blog created by Cypress.');
+    });
+  });
 });
