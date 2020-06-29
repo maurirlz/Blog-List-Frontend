@@ -9,8 +9,12 @@
     "commonjs": true,
     "es6": true,
     "jest": true,
-    "node": true
+    "node": true,
+    "cypress/globals": true
   },
+  "plugins": [
+    "react", "jest", "cypress"
+  ],
   "rules": {
 
     "jsx-a11y/href-no-hash": ["off"],

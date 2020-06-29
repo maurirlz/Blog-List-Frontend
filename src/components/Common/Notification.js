@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Notification = ({ message }) => {
+const Notification = ({ message, id }) => {
   if (message === null) {
     return null;
   }
 
   return (
     <div>
-      <p>{message}</p>
+      <p id={id}>{message}</p>
     </div>
   );
 };

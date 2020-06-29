@@ -131,7 +131,7 @@ const App = () => {
   const displayLoginForm = () => {
     return (
       <div className="loginform">
-        <Notification class="notification" message={errorMessage} />
+        <Notification id="loginError" class="notification" message={errorMessage} />
         <LoginForm handleLogin={handleLogin} />
       </div>
     );

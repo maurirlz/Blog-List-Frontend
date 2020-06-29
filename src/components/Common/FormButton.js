@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const FormButton = ({ text, type }) => {
-  return <button type={type}>{text || 'click me'}</button>;
+  return <button id="formButton" type={type}>{text || 'click me'}</button>;
 };
 
 FormButton.propTypes = {
