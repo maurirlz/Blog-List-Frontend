@@ -74,7 +74,7 @@ const App = () => {
       const data = await blogService.createBlog(newBlog);
 
       setBlogs(blogs.concat(data));
-      setNotificationMessage('Blog added!!!');
+      setNotificationMessage('Blog added!');
 
       setTimeout(() => {
         setNotificationMessage(null);
@@ -148,8 +148,8 @@ const App = () => {
             textTitle="Blog section"
             handleLogout={handleLogout}
           />
-          <Notification class="notification" message={notificationMessage} />
-          <Notification class="error" message={errorMessage} />
+          <Notification className="notification" message={notificationMessage} />
+          <Notification className="error" message={errorMessage} />
         </div>
         <Togglable
           positiveButtonLabel="Create a New Blog"

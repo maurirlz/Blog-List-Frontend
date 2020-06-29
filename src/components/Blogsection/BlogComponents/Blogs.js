@@ -31,7 +31,7 @@ const Blogs = ({ blogs, likeHandler, deleteHandler }) => {
 Blogs.propTypes = {
   likeHandler: PropTypes.func.isRequired,
   deleteHandler: PropTypes.func.isRequired,
-  blogs: PropTypes.node.isRequired,
+  blogs: PropTypes.array.isRequired,
 };
 
 export default Blogs;

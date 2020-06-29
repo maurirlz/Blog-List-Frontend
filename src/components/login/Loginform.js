@@ -24,6 +24,7 @@ const LoginForm = ({ handleLogin }) => {
       <Title text="Login" />
       <form onSubmit={createUser}>
         <FormInput
+          id="usernameInput"
           state={username}
           setState={setUsername}
           text="username"
@@ -31,6 +32,7 @@ const LoginForm = ({ handleLogin }) => {
           type="text"
         />
         <FormInput
+          id="passwordInput"
           state={password}
           setState={setPassword}
           text="password"
