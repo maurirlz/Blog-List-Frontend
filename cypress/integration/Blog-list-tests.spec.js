@@ -1,5 +1,5 @@
 describe('Blog app', function () {
-  beforeEach(function () {
+  beforeEach(function() {
     cy.request('POST', 'http://localhost:3001/api/testing/reset');
     cy.request('POST', 'http://localhost:3001/api/users', {
       username: 'maurirlz',
@@ -10,12 +10,12 @@ describe('Blog app', function () {
     cy.visit('http://localhost:3000');
   });
 
-  it('should show the logging form when visiting the page without a log in.', function () {
+  it('should show the logging form when visiting the page without a log in.', function() {
     cy.contains('Login');
   });
 
-  describe('Login', function () {
-    it('should successfully log in with correct credentials', function () {
+  describe('Login', function() {
+    it('should successfully log in with correct credentials', function() {
       cy.contains('Login');
       cy.login({
         username: 'maurirlz',
@@ -27,7 +27,7 @@ describe('Blog app', function () {
       cy.contains('Create a Blog');
     });
 
-    it('should fail with incorrect credentials', function () {
+    it('should fail with incorrect credentials', function() {
       cy.get('#usernameInput').type('maurirlz');
       cy.get('#passwordInput').type('wrong password');
       cy.get('#formButton').click();
@@ -36,15 +36,15 @@ describe('Blog app', function () {
     });
   });
 
-  describe('When a user is logged in', function () {
-    beforeEach(function () {
+  describe('When a user is logged in', function() {
+    beforeEach(function() {
       cy.login({
         username: 'maurirlz',
         password: 'rootroot',
       });
     });
 
-    it('user should be able to create a blog', function () {
+    it('user should be able to create a blog', function() {
       cy.createBlog({
         title: 'Blog created by Cypress.',
         author: 'Cypress, who else?',
@@ -72,7 +72,10 @@ describe('Blog app', function () {
           url: 'http://cypress.io',
         });
 
-        cy.contains('Blog number 2 by Cypress.').parent().find('button').as('viewBlog2');
+        cy.contains('Blog number 2 by Cypress.')
+          .parent()
+          .find('button')
+          .as('viewBlog2');
       });
 
       it('any of them can be liked', function() {
@@ -89,6 +92,19 @@ describe('Blog app', function () {
         cy.contains('Delete blog').click();
 
         cy.get('html').should('not.contain', 'Blog number 2 by Cypress.');
+      });
+
+      it.only('the most liked one is displayed first', function() {
+        cy.get('@viewBlog2').click();
+        cy.contains('Like').click();
+
+        cy.visit('http://localhost:3000');
+        cy.login({
+          username: 'maurirlz',
+          password: 'rootroot',
+        });
+
+        cy.contains('Blog number').contains('Blog number 2 by Cypress.'); // Gets first ocurrence of Blog number: if its 2, then its position was modified.
       });
     });
   });

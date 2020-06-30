@@ -42,4 +42,11 @@ Cypress.Commands.add('createBlog', ({ title, author, url }) => {
     }
   })
     cy.visit('http://localhost:3000');
+});
+
+Cypress.Commands.add('getBlogs', async () => {
+  return cy.request({
+    url: 'http://localhost:3001/api/blogs',
+    method: 'GET',
+  });
 })
